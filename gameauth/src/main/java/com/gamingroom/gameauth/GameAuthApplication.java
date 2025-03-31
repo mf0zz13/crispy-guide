@@ -40,10 +40,13 @@ public class GameAuthApplication extends Application<Configuration> {
 		
 		LOGGER.info("Registering REST resources");
  
-		// FIXME: register GameUserRESTController (based on BasicAuth Security Example)
-		// FIXME: Create io.dropwizard.client.JerseyClientBuilder instance and give it io.dropwizard.setup.Environment reference (based on BasicAuth Security Example)
-		
+		// Registering new controller
+		e.jersey().register(new GameUserRESTController(e.getValidator()));
 
+		// creating client
+		final Client client = new JerseyClientBuilder(e)
+				.build("GameAuthClient");
+		e.jersey().register(new RESTClientController(client));
 
 		// Application health check
 		e.healthChecks().register("APIHealthCheck", new AppHealthCheck(client));

@@ -25,7 +25,8 @@ import javax.ws.rs.core.Response.Status;
 import com.gamingroom.gameauth.auth.GameUser;
 import com.gamingroom.gameauth.dao.GameUserDB;
 import com.gamingroom.gameauth.representations.GameUserInfo;
-// FIXME: Add path annotation for gameusers 
+
+@Path("/gameusers")
 
 @Produces(MediaType.APPLICATION_JSON)
 public class GameUserRESTController {
@@ -42,10 +43,9 @@ public class GameUserRESTController {
         return Response.ok(GameUserDB.getGameUsers()).build();
     }
  
-    // FIXME: Add RolesAllowed annotation for USER based on BasicAuth Security Example 
-
     @GET
     @Path("/{id}")
+    @RolesAllowed({"USER"})
     public Response getGameUserById(@PathParam("id") Integer id,@Auth GameUser user) {
     	//You can validate here if user is watching his record
     	/*if(id != user.getId()){
@@ -59,9 +59,8 @@ public class GameUserRESTController {
     }
 
 
-    // FIXME: Add RolesAllowed annotation for ADMIN based on BasicAuth Security Example 
-
     @POST
+    @RolesAllowed({"USER"})
     public Response createGameUser(GameUserInfo gameUserInfo, @Auth GameUser user) throws URISyntaxException {
         // validation
         Set<ConstraintViolation<GameUserInfo>> violations = validator.validate(gameUserInfo);

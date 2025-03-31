@@ -24,8 +24,8 @@ public class RESTClientController
         this.client = client;
     }
      
- // FIXME: Add annotation for GET and Path for gameusers 
-
+    @GET
+    @Path("/gameusers/")
     public String getGameUsers()
     {
         //Do not hard code in your application

@@ -24,10 +24,9 @@ public class GameAuthenticator implements Authenticator<BasicCredentials, GameUs
     @Override
     public Optional<GameUser> authenticate(BasicCredentials credentials) throws AuthenticationException 
     {
-        if (VALID_USERS.containsKey(credentials.getUsername()) && "password".equals(credentials.getPassword())) 
+        if (VALID_USERS.containsKey(credentials.getUsername()) && "password".equals(credentials.getPassword()))
         {
-            // FIXME: Finish the authorize method based on BasicAuth Security Example for new GameUser
-
+            return Optional.of(new GameUser(credentials.getUsername(), VALID_USERS.get(credentials.getUsername())));
         }
         return Optional.empty();
     }
